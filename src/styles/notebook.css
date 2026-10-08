@@ -1,0 +1,372 @@
+/* Notebook — the design system as one stylesheet. Import it after `@import "tailwindcss"`, and add
+   `@source` for this package so the utilities the components use get generated. See README. */
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/paper.css";
+@import "./tokens/interaction.css";
+
+/* `dark:` follows the night switch (data-theme on <html>), not the OS setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Tokens exposed as Tailwind utilities: bg-paper, text-ink, border-rule, text-meta… */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-card: var(--paper-card);
+  --color-ink: var(--ink);
+  --color-soft: var(--ink-soft);
+  --color-rule: var(--ink-rule);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-highlight: var(--highlight);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --text-lede: var(--size-lede);
+  --text-lede--line-height: var(--leading-hero);
+  --text-lede--letter-spacing: -0.015em;
+  --text-title: var(--size-title);
+  --text-title--line-height: var(--leading-tight);
+  --text-body: var(--size-body);
+  --text-body--line-height: var(--leading-body);
+  --text-row: var(--size-body);
+  --text-row--line-height: var(--leading-row);
+  --text-meta: var(--size-meta);
+  --text-meta--line-height: var(--leading-row);
+  --text-sticker: var(--size-sticker);
+  --text-sticker--line-height: 1.3;
+  --radius-*: initial;
+  --radius: 0px;
+}
+
+/* Base: paint the page yourself (`bg-paper text-ink font-sans` on the root), or use .notebook-body. */
+.notebook-body {
+  background-color: var(--paper);
+  background-image: var(--paper-grain);
+  background-size: var(--paper-grain-size);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-body);
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--track-body);
+  text-wrap: pretty;
+}
+
+a { color: inherit; }
+
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+}
+
+::selection {
+  background: var(--highlight-punch);
+}
+
+/* ── The three moves. One-mark rule: highlight = meaning (static),
+   drawn mark = interaction. See tokens/interaction.css. ─────────────── */
+
+/* drawn mark: .hd positions it, the closest .draws draws it */
+.hd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.hd .mk {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+}
+.hd .mk.under {
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  margin-top: 1px;
+}
+.hd .mk.around {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hd .mk path {
+  /* 1 3 + 1.02: at rest the dash sits fully outside the path — round caps
+     would otherwise leave a phantom dot at one end of every mark. */
+  stroke-dasharray: 1 3;
+  stroke-dashoffset: 1.02;
+  transition: stroke-dashoffset var(--draw-duration) var(--draw-ease);
+}
+.draws:hover .mk path,
+.draws:focus-visible .mk path,
+.draws[data-current="true"] .mk path,
+details[open] > summary .mk path {
+  stroke-dashoffset: 0;
+}
+
+/* chip: bare soft-ink mono; the marker swipes when its row or card is touched */
+.chip {
+  color: var(--ink-soft);
+  transition: color var(--swipe-duration) var(--swipe-ease);
+}
+.chip i {
+  position: absolute;
+  inset: 1px -4px;
+  background: var(--marker);
+  pointer-events: none;
+  transform: skewX(var(--swipe-skew)) scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--swipe-duration) var(--swipe-ease);
+}
+.draws:hover .chip i,
+.draws:focus-visible .chip i,
+.chip[data-state="selected"] i {
+  transform: skewX(var(--swipe-skew)) scaleX(1);
+}
+.draws:hover .chip,
+.draws:focus-visible .chip,
+.chip[data-state="selected"] {
+  color: var(--ink);
+}
+.chip[data-state="disabled"] {
+  opacity: var(--disabled-opacity);
+}
+.chip[data-state="disabled"] i {
+  display: none;
+}
+
+/* outlined button: ink line + paper shift, never a fill */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: var(--border) solid var(--ink-rule);
+  background: transparent;
+  padding: 7px 13px;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    box-shadow 0.16s ease,
+    translate 0.16s ease,
+    opacity 0.16s ease;
+}
+.btn:hover:not(:disabled) {
+  box-shadow: 3px 3px 0 var(--ink);
+  translate: -1px -1px;
+}
+.btn:active:not(:disabled) {
+  box-shadow: 1px 1px 0 var(--ink);
+  translate: 0 0;
+}
+.btn:disabled {
+  opacity: var(--disabled-opacity);
+  cursor: default;
+}
+
+/* day / night switch: a ruled track, a square ink knob that slides (theme-toggle.tsx) */
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 50px;
+  height: 26px;
+  padding: 0 5px;
+  border: var(--border) solid var(--ink-rule);
+  background: var(--paper-card);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition:
+    box-shadow var(--draw-duration) var(--draw-ease),
+    translate var(--draw-duration) var(--draw-ease);
+}
+.theme-toggle:hover {
+  box-shadow: 3px 3px 0 var(--ink);
+  translate: -1px -1px;
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.theme-toggle .knob {
+  position: absolute;
+  top: 1.5px;
+  left: 1.5px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  background: var(--ink);
+  color: var(--paper);
+  transition: translate var(--swipe-duration) var(--swipe-ease);
+}
+.theme-toggle[aria-checked="true"] .knob {
+  translate: 24px 0;
+}
+
+/* the only card: rests off-square, straightens under the pointer */
+.card-tilt {
+  transform: rotate(var(--tilt));
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+article:nth-of-type(even) .card-tilt {
+  transform: rotate(calc(var(--tilt) * -1));
+}
+.card-tilt:hover,
+.card-tilt:focus-visible {
+  transform: rotate(0deg);
+}
+
+/* Logo motions — from the "Logo — variations" board. CSS keyframes only.
+   Draw-in replays on hover by swapping animation-name (same frames). */
+@keyframes logo-dash {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+@keyframes logo-dash-replay {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+@keyframes logo-pop {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes logo-fill {
+  to {
+    fill-opacity: 1;
+  }
+}
+@keyframes logo-fill-replay {
+  to {
+    fill-opacity: 1;
+  }
+}
+@keyframes logo-pop-replay {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.logo-draw [data-draw] {
+  stroke-dasharray: 1;
+  animation: logo-dash 0.9s ease-out both;
+}
+.logo-draw [data-draw="2"] {
+  animation-delay: 1.2s;
+  animation-duration: 0.35s;
+}
+.logo-draw [data-draw="3"] {
+  animation-delay: 1.4s;
+  animation-duration: 0.35s;
+}
+.logo-draw [data-fill] {
+  fill-opacity: 0;
+  animation:
+    logo-dash 0.9s ease-out both,
+    logo-fill 0.4s ease-out 0.85s both;
+}
+.logo-draw [data-pop] {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: logo-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s both;
+}
+.logo-draw:hover [data-draw] {
+  animation-name: logo-dash-replay;
+}
+.logo-draw:hover [data-fill] {
+  animation-name: logo-dash-replay, logo-fill-replay;
+}
+.logo-draw:hover [data-pop] {
+  animation-name: logo-pop-replay;
+}
+
+/* Sunset: the disc slides behind the paper-filled silhouette, ochre to rose. */
+@keyframes logo-sunset {
+  0% {
+    transform: translateY(-2px);
+    fill: var(--sun);
+  }
+  50% {
+    transform: translateY(9px);
+    fill: var(--sun-set);
+  }
+  100% {
+    transform: translateY(-2px);
+    fill: var(--sun);
+  }
+}
+.logo-sunset [data-sun] {
+  animation: logo-sunset 7s ease-in-out infinite;
+}
+
+/* Snow: five flakes, each with its own speed and delay. */
+@keyframes logo-drift {
+  0% {
+    transform: translateY(-3px);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(9px);
+    opacity: 0;
+  }
+}
+.logo-snow .flake {
+  transform-box: fill-box;
+  animation: logo-drift 3.4s linear infinite;
+}
+.logo-snow .flake:nth-child(2) {
+  animation-duration: 4.2s;
+  animation-delay: 0.5s;
+}
+.logo-snow .flake:nth-child(3) {
+  animation-duration: 2.9s;
+  animation-delay: 1.1s;
+}
+.logo-snow .flake:nth-child(4) {
+  animation-duration: 3.8s;
+  animation-delay: 1.7s;
+}
+.logo-snow .flake:nth-child(5) {
+  animation-duration: 3.2s;
+  animation-delay: 2.3s;
+}
+
+/* Ridge sketch (margin): each stroke traces itself on its own clock, set inline by ridge-sketch.tsx. */
+.sketch [data-line] {
+  stroke-dasharray: 1;
+  animation: logo-dash var(--dur) ease-in-out var(--at) both;
+}
+.sketch [data-fill] {
+  animation: sketch-settle var(--dur) ease-out var(--at) both;
+}
+@keyframes sketch-settle {
+  from {
+    opacity: 0;
+  }
+}
+
