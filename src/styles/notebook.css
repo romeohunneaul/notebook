@@ -21,6 +21,9 @@
   --color-highlight: var(--highlight);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+  --font-weight-body: var(--weight-body);
+  --font-weight-title: var(--weight-title);
+  --spacing: var(--space-1); /* p-2, gap-4… step on the 4px token, so the scale is the system's */
   --text-lede: var(--size-lede);
   --text-lede--line-height: var(--leading-hero);
   --text-lede--letter-spacing: -0.015em;
@@ -147,20 +150,19 @@ details[open] > summary .mk path {
   gap: 8px;
   border: var(--border) solid var(--ink-rule);
   background: transparent;
-  padding: 7px 13px;
+  padding: calc(var(--space-2) - var(--border)) calc(var(--space-4) - var(--border)); /* border included: 8 × 16 */
   color: var(--ink);
   cursor: pointer;
   transition:
-    box-shadow 0.16s ease,
-    translate 0.16s ease,
-    opacity 0.16s ease;
+    box-shadow var(--shift-duration) var(--shift-ease),
+    translate var(--shift-duration) var(--shift-ease);
 }
 .btn:hover:not(:disabled) {
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: var(--shadow-hover);
   translate: -1px -1px;
 }
 .btn:active:not(:disabled) {
-  box-shadow: 1px 1px 0 var(--ink);
+  box-shadow: var(--shadow-pressed);
   translate: 0 0;
 }
 .btn:disabled {
@@ -183,16 +185,12 @@ details[open] > summary .mk path {
   color: var(--ink-soft);
   cursor: pointer;
   transition:
-    box-shadow var(--draw-duration) var(--draw-ease),
-    translate var(--draw-duration) var(--draw-ease);
+    box-shadow var(--shift-duration) var(--shift-ease),
+    translate var(--shift-duration) var(--shift-ease);
 }
 .theme-toggle:hover {
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: var(--shadow-hover);
   translate: -1px -1px;
-}
-.theme-toggle:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
 }
 .theme-toggle .knob {
   position: absolute;
@@ -214,8 +212,8 @@ details[open] > summary .mk path {
 .card-tilt {
   transform: rotate(var(--tilt));
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform var(--shift-duration) var(--shift-ease),
+    box-shadow var(--shift-duration) var(--shift-ease);
 }
 article:nth-of-type(even) .card-tilt {
   transform: rotate(calc(var(--tilt) * -1));
@@ -367,6 +365,28 @@ article:nth-of-type(even) .card-tilt {
 @keyframes sketch-settle {
   from {
     opacity: 0;
+  }
+}
+
+/* Reduced motion: every drawing shows finished, every hover lands at once. */
+@media (prefers-reduced-motion: reduce) {
+  .logo-draw *,
+  .logo-sunset *,
+  .logo-snow *,
+  .sketch * {
+    animation: none !important;
+  }
+  .logo-draw [data-fill] {
+    fill-opacity: 1;
+  }
+  .hd .mk path,
+  .chip,
+  .chip i,
+  .btn,
+  .theme-toggle,
+  .theme-toggle .knob,
+  .card-tilt {
+    transition: none;
   }
 }
 

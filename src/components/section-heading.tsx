@@ -15,7 +15,7 @@ export function SectionHeading({ children, aside, lede, id }: SectionHeadingProp
   return (
     <div className="flex flex-col gap-3">
       <div className="border-ink flex items-baseline justify-between gap-4 border-b-[length:var(--border)] pb-3">
-        <h2 id={id} className="text-title m-0 font-semibold">
+        <h2 id={id} className="text-title m-0 font-title">
           {children}
         </h2>
         {aside && <span className="text-soft text-meta font-mono">{aside}</span>}

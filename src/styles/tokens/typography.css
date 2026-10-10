@@ -9,7 +9,6 @@
   --font-mono: var(--font-space-mono, "Space Mono"), "Space Mono", ui-monospace, monospace;
 
   --weight-body: 400;
-  --weight-emphasis: 500;
   --weight-title: 600;
 
   /* Fluid: each size grows with the window between a phone floor and a wide-screen ceiling.

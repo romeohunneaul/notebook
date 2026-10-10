@@ -27,7 +27,7 @@ function Glyph({ name }: { name: "sun" | "moon" }) {
 
 /**
  * Day / night switch for the whole site. A square knob slides over a ruled track, carrying the
- * current glyph; the other one waits, faint, on the free side. Styles: .theme-toggle in globals.css.
+ * current glyph; the other one waits, faint, on the free side. Styles: .theme-toggle in notebook.css.
  */
 export function ThemeToggle() {
   const dark = useTheme() === "dark";

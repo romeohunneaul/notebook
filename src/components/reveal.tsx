@@ -10,9 +10,9 @@ type RevealProps = {
 };
 
 /**
- * Animation d'entrée. Le contenu est visible par défaut : GSAP anime *depuis*
- * un état masqué (`from`), pour qu'un échec du JS laisse la page lisible.
- * `matchMedia` respecte prefers-reduced-motion sans test manuel.
+ * Entrance animation. Content is visible by default: GSAP animates *from* a hidden
+ * state, so a JS failure leaves the page readable. `matchMedia` honours
+ * prefers-reduced-motion with no manual check.
  */
 export function Reveal({ children, delay = 0 }: RevealProps) {
   const container = useRef<HTMLDivElement>(null);

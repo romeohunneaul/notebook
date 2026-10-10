@@ -7,7 +7,7 @@ type Pt = [number, number];
 /**
  * The logo, drawn by hand: the ridge traces itself, the snow lines follow, then the sky —
  * a sun with its rays by day, a moon and stars by night. Each stroke runs on its own clock
- * (`at`/`dur`, seconds); the motion is CSS (.sketch in globals.css), so the drawing is
+ * (`at`/`dur`, seconds); the motion is CSS (.sketch in notebook.css), so the drawing is
  * there without JS and never flashes on hydration. Both skies are rendered; the theme
  * picks one with `dark:`. Flipping the theme replays the whole drawing.
  * Geometry is logo.tsx's, sun enlarged; prototyped in /lab/hero-sketch.

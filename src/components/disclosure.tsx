@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { DrawnMark } from "./drawn-mark";
 
 type DisclosureProps = {
   id?: string;
@@ -16,11 +17,13 @@ type DisclosureProps = {
 export function Disclosure({ id, summary, children, open }: DisclosureProps) {
   return (
     <details id={id} open={open} className="group border-rule border-b scroll-mt-8 open:pb-5">
-      <summary className="grid cursor-pointer list-none grid-cols-[1fr_auto_auto] items-baseline gap-x-6 gap-y-1 py-4 hover:bg-[var(--accent-tint)] [&::-webkit-details-marker]:hidden">
+      <summary className="draws grid cursor-pointer list-none grid-cols-[1fr_auto_auto] items-baseline gap-x-6 gap-y-1 py-4 [&::-webkit-details-marker]:hidden">
         {summary}
-        <span aria-hidden="true" className="text-soft text-title col-start-3 row-span-2 row-start-1 self-center pl-2 font-light">
+        {/* The loop draws round the glyph on hover and stays while open (details[open] > summary in notebook.css). */}
+        <span aria-hidden="true" className="hd text-soft text-title col-start-3 row-span-2 row-start-1 justify-center self-center pl-2">
           <span className="group-open:hidden">+</span>
           <span className="hidden group-open:inline">−</span>
+          <DrawnMark shape="loop" />
         </span>
       </summary>
       {children}

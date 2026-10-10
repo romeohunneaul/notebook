@@ -1,7 +1,7 @@
 /* Notebook — paper, pens, shadow. */
 :root {
-  /* Grain is a real fractal-noise file; a gradient cannot fake it. */
-  --paper-grain: url("/grain.svg");
+  /* Grain is real fractal noise; a gradient cannot fake it. Inlined so the package needs no public file. */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
   --paper-grain-size: 140px 140px;
 
   --paper-grid:
@@ -11,13 +11,11 @@
     repeating-linear-gradient(0deg, color-mix(in srgb, var(--ink) 13%, transparent) 0 1px, transparent 1px 16px),
     repeating-linear-gradient(90deg, color-mix(in srgb, var(--ink) 13%, transparent) 0 1px, transparent 1px 16px);
 
-  /* Pen families — one per page */
+  /* The pen: hand-drawn marks (Mark, DrawnMark) are fine liner. The logo keeps its own Figma widths. */
   --stroke-fine: 1.5px;
-  --stroke-pencil: 2.2px;
-  --stroke-pencil-dash: 5 2 9 3;
-  --stroke-ballpoint: 1.1px;
-  --stroke-marker: 3.6px;
 
-  /* Hard offset shadow, hover only */
-  --shadow-hover: 4px 4px 0 var(--ink);
+  /* Hard offset shadows. Ink ones answer the pointer; the soft one is the sticker's, always on. */
+  --shadow-hover: 3px 3px 0 var(--ink);
+  --shadow-pressed: 1px 1px 0 var(--ink);
+  --shadow-rest: 3px 3px 0 var(--ink-shadow);
 }
