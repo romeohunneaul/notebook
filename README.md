@@ -72,6 +72,23 @@ import { Button, Chip, NoteCard, SectionHeading, EntryRow, ThemeToggle } from "@
 Every component has a story: `npm run storybook` in this repo, `npm run build-storybook` for a
 static site to host.
 
+## Staying up to date
+
+Notebook is installed from GitHub, so npm pins the exact commit in your `package-lock.json`.
+`git pull` in your project does not move it, and neither does `npm update`. To follow the design
+system, add a script to your `package.json`:
+
+```json
+"update:notebook": "npm i @romeohunneaul/notebook@github:romeohunneaul/notebook"
+```
+
+then run `npm run update:notebook` and commit `package-lock.json`, so every clone of your project
+renders the same components. A component change can alter your screens: look at them, or at your
+own stories, before committing the bump.
+
+There are no tagged releases yet: `main` is the version. Once releases are tagged, pin a range
+(`github:romeohunneaul/notebook#semver:^0.2.0`) and let a bot such as Renovate open the update PRs.
+
 ## Rules that travel with the tokens
 
 - One loud colour (`--accent-strong`), used for one mark. Tints are backgrounds behind text.
