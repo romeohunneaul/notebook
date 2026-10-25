@@ -4,8 +4,6 @@ type ChipProps = {
   children: ReactNode;
   /** selected keeps the marker drawn; disabled drops to 38% with no marker. */
   state?: "rest" | "selected" | "disabled";
-  /** @deprecated ignored — chips are bare type; the marker belongs to interaction. */
-  tone?: string;
 };
 
 /**
@@ -15,7 +13,7 @@ type ChipProps = {
  */
 export function Chip({ children, state = "rest" }: ChipProps) {
   return (
-    <span className="chip text-meta relative inline-block px-[7px] py-[2px] font-mono whitespace-nowrap" data-state={state}>
+    <span className="chip text-meta relative inline-block px-2 py-0.5 font-mono whitespace-nowrap" data-state={state}>
       <i aria-hidden="true" />
       <span className="relative">{children}</span>
     </span>

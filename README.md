@@ -60,7 +60,7 @@ import { Button, Chip, NoteCard, SectionHeading, EntryRow, ThemeToggle } from "@
 |---|---|
 | `Button` | `variant: "outlined" \| "quiet"`. Ink line and hard shadow, or bare type over a drawn line. Never a fill |
 | `Chip` | bare mono type; `state: "rest" \| "selected" \| "disabled"`. The marker swipes when the enclosing `.draws` row is hovered |
-| `NoteCard` | a published note: title, date, summary, tags |
+| `NoteCard` | a published note: title, date, summary, tags; `href` makes it a link |
 | `EntryRow`, `TextLink` | a list row and a link, both drawing their mark on hover |
 | `SectionHeading` | a real heading closed by an ink rule, optional `aside` and `lede` |
 | `Disclosure`, `OpenOnHash` | a `<details>` with a drawn summary, opened by URL hash |
@@ -96,6 +96,9 @@ There are no tagged releases yet: `main` is the version. Once releases are tagge
 - Highlight = meaning (static). Drawn mark = interaction (hover, focus, current).
 - `--radius: 0`. Nothing rounded.
 - Soft ink (`text-soft`) is for metadata only.
+- Interaction makes three moves: an ink line (draw), a paper shift with `--shadow-hover` (shift), the marker (swipe). Entrances (logo, sketch, `Reveal`) are not interactions.
+- Spacing utilities step on `--space-1` (4px); titles use `font-title`, hand-drawn strokes `--stroke-fine`.
+- `prefers-reduced-motion: reduce` shows every drawing finished and every hover at once.
 
 ## License
 

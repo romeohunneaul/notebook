@@ -4,7 +4,8 @@ import { Chip } from "./chip";
 type NoteCardProps = {
   title: string;
   summary?: string;
-  slug?: string;
+  /** Where the card leads. The host owns its routes. */
+  href?: string;
   date?: string;
   tags?: string[];
 };
@@ -12,11 +13,11 @@ type NoteCardProps = {
 const monthYear = new Intl.DateTimeFormat("en-GB", { month: "short", year: "numeric" });
 
 /** Only published notes get to be cards. Hover: a hard offset shadow, nothing else. */
-export function NoteCard({ title, summary, slug, date, tags = [] }: NoteCardProps) {
+export function NoteCard({ title, summary, href, date, tags = [] }: NoteCardProps) {
   const inner = (
     <>
       <span className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <span className="text-title font-semibold">{title}</span>
+        <span className="text-title font-title">{title}</span>
         {date && (
           <time dateTime={date} className="text-soft text-meta font-mono">
             {monthYear.format(new Date(date))}
@@ -39,8 +40,8 @@ export function NoteCard({ title, summary, slug, date, tags = [] }: NoteCardProp
 
   return (
     <article>
-      {slug ? (
-        <Link href={`/sandbox/${slug}`} className={cls}>
+      {href ? (
+        <Link href={href} className={cls}>
           {inner}
         </Link>
       ) : (

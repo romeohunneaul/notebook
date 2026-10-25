@@ -13,7 +13,7 @@ type TextLinkProps = {
 /**
  * The one text-link treatment. A hand-drawn underline inks itself in left to
  * right on hover and focus; `current` holds it drawn. Nothing at rest. Chrome
- * links only — prose keeps the plain CSS underline. See .hd/.draws in globals.css.
+ * links only — prose keeps the plain CSS underline. See .hd/.draws in notebook.css.
  */
 export function TextLink({ href, children, current, className = "" }: TextLinkProps) {
   const external = href.startsWith("http");

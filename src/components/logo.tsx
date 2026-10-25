@@ -1,7 +1,7 @@
 /**
  * The brand mark — François's Figma drawing (UIRA Sunset Logo): the filled
  * ridge, a big sun behind it, and two grey snow liserets on the cols.
- * Motion is CSS only (see the logo block in globals.css):
+ * Motion is CSS only (see the logo block in notebook.css):
  *
  * - "static"  the drawing, still — the header default.
  * - "draw"    ridge draws itself, fill settles, liserets, sun pops. Replays on hover.

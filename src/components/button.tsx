@@ -7,7 +7,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
 };
 
-/** None of them fill with colour. The icon control is AskRow's arrow, not a Button. */
+/** None of them fill with colour. An icon-only control is not a Button: draw a loop around it (DrawnMark shape="loop"). */
 export function Button({ variant = "outlined", children, className = "", ...rest }: ButtonProps) {
   if (variant === "quiet") {
     return (
