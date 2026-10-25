@@ -65,6 +65,7 @@ import { Button, Chip, NoteCard, SectionHeading, EntryRow, ThemeToggle } from "@
 | `SectionHeading` | a real heading closed by an ink rule, optional `aside` and `lede` |
 | `Disclosure`, `OpenOnHash` | a `<details>` with a drawn summary, opened by URL hash |
 | `Highlight`, `Mark`, `DrawnMark`, `Sticker` | the marker tint behind text, hand-drawn marks, the margin sticker |
+| `Pin`, `DrawnBox`, `Tag` | marking up a specimen: a numbered square, a hand-drawn box around a region, a field or component name on the marker. Each takes `on` and sits `absolute` in a `relative` parent |
 | `Logo`, `LogoSquare`, `RidgeSketch` | the wordmark and its motions, the margin sketch |
 | `ThemeToggle`, `useTheme`, `setTheme` | the day / night switch and its hook |
 | `Reveal` (`@romeohunneaul/notebook/reveal`) | GSAP entrance; needs `gsap` and `@gsap/react` installed |
