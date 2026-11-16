@@ -10,13 +10,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Bare type at rest — no fill, no border. */
+/** A small rounded tag, soft ink on a hairline. */
 export const Rest: Story = {};
-/** The marker stays drawn. */
+/** Ink type, ink border. */
 export const Selected: Story = { args: { state: "selected" } };
-/** 38% ink, no marker — the only state with no yellow in it. */
+/** 38% opacity. */
 export const Disabled: Story = { args: { state: "disabled" } };
-/** Hover the row: the swipe belongs to the container, not the chip. */
+/** Static: hovering the row changes nothing on the chip. */
 export const InsideARow: Story = {
   render: () => (
     <button type="button" className="draws border-rule flex w-full items-baseline gap-3 border-b py-4 text-left">

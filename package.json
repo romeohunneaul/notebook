@@ -1,6 +1,6 @@
 {
   "name": "@romeohunneaul/notebook",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Notebook: a paper-and-ink design system. Tokens, one stylesheet, React components for Next.js, Storybook.",
   "license": "MIT",
   "type": "module",
