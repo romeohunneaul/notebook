@@ -2,7 +2,6 @@ export { Button } from "./components/button";
 export { Chip } from "./components/chip";
 export { Disclosure } from "./components/disclosure";
 export { DrawnBox } from "./components/drawn-box";
-export { DrawnMark } from "./components/drawn-mark";
 export { EntryRow } from "./components/entry-row";
 export { Highlight } from "./components/highlight";
 export { Logo } from "./components/logo";

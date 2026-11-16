@@ -1,24 +1,22 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { DrawnMark } from "./drawn-mark";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  /** outlined: ink box, hard shadow on hover. quiet: bare type over a faint drawn line. */
+  /** outlined: a rounded hairline box. quiet: bare type that underlines under the pointer. */
   variant?: "outlined" | "quiet";
   children: ReactNode;
 };
 
-/** None of them fill with colour. An icon-only control is not a Button: draw a loop around it (DrawnMark shape="loop"). */
+/** None of them fill with colour. An icon-only control is not a Button. */
 export function Button({ variant = "outlined", children, className = "", ...rest }: ButtonProps) {
   if (variant === "quiet") {
     return (
-      <button type="button" {...rest} className={`hd draws text-meta px-0.5 py-1 font-mono ${className}`}>
+      <button type="button" {...rest} className={`hd draws text-meta px-0.5 py-1 ${className}`}>
         {children}
-        <DrawnMark />
       </button>
     );
   }
   return (
-    <button type="button" {...rest} className={`btn text-meta font-mono ${className}`}>
+    <button type="button" {...rest} className={`btn text-meta ${className}`}>
       {children}
     </button>
   );

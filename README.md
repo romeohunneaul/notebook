@@ -1,7 +1,7 @@
 # Notebook
 
 A paper-and-ink design system: warm paper, one ink, pastel tints used like a marker, hand-drawn
-marks, nothing rounded. Tokens, one stylesheet, React components for Next.js, and a Storybook.
+marks, rounded corners. Tokens, one stylesheet, React components for Next.js, and a Storybook.
 
 Extracted from [romeohunneaul/portfolio](https://github.com/romeohunneaul/portfolio).
 
@@ -58,13 +58,13 @@ import { Button, Chip, NoteCard, SectionHeading, EntryRow, ThemeToggle } from "@
 
 | Component | What |
 |---|---|
-| `Button` | `variant: "outlined" \| "quiet"`. Ink line and hard shadow, or bare type over a drawn line. Never a fill |
-| `Chip` | bare mono type; `state: "rest" \| "selected" \| "disabled"`. The marker swipes when the enclosing `.draws` row is hovered |
-| `NoteCard` | a published note: title, date, summary, tags; `href` makes it a link |
-| `EntryRow`, `TextLink` | a list row and a link, both drawing their mark on hover |
+| `Button` | `variant: "outlined" \| "quiet"`. A rounded hairline box, or bare type that underlines on hover. Never a fill |
+| `Chip` | a small rounded tag in the body face; `state: "rest" \| "selected" \| "disabled"`. Static on hover |
+| `NoteCard` | a published note: title, date, summary, tags; `href` makes it a link. Its border lights with a gradient on hover (`.edge`) |
+| `EntryRow`, `TextLink` | a list row and a link, both underlining on hover; `current` keeps a 2px line and semibold |
 | `SectionHeading` | a real heading closed by an ink rule, optional `aside` and `lede` |
-| `Disclosure`, `OpenOnHash` | a `<details>` with a drawn summary, opened by URL hash |
-| `Highlight`, `Mark`, `DrawnMark`, `Sticker` | the marker tint behind text, hand-drawn marks, the margin sticker |
+| `Disclosure`, `OpenOnHash` | a `<details>` whose summary tints on hover, opened by URL hash |
+| `Highlight`, `Mark`, `Sticker` | the accent (bold weight, no colour), hand-drawn marks, the margin sticker |
 | `Pin`, `DrawnBox`, `Tag` | marking up a specimen: a numbered square, a hand-drawn box around a region, a field or component name on the marker. Each takes `on` and sits `absolute` in a `relative` parent |
 | `Logo`, `LogoSquare`, `RidgeSketch` | the wordmark and its motions, the margin sketch |
 | `ThemeToggle`, `useTheme`, `setTheme` | the day / night switch and its hook |
@@ -93,10 +93,10 @@ There are no tagged releases yet: `main` is the version. Once releases are tagge
 ## Rules that travel with the tokens
 
 - One loud colour (`--accent-strong`), used for one mark. Tints are backgrounds behind text.
-- Highlight = meaning (static). Drawn mark = interaction (hover, focus, current).
-- `--radius: 0`. Nothing rounded.
+- The accent is weight alone (`Highlight`): no marker behind text.
+- Rounded: `--round-sm` (6px, tags and buttons), `--round-md` (10px, cards), `--round-lg` (12px, fields), as `rounded-sm/md/lg`.
 - Soft ink (`text-soft`) is for metadata only.
-- Interaction makes three moves: an ink line (draw), a paper shift with `--shadow-hover` (shift), the marker (swipe). Entrances (logo, sketch, `Reveal`) are not interactions.
+- Interaction: a link underlines under the pointer; a card that opens something lights its border with a gradient, on hover or keyboard focus only (`.edge`). No tilt, no hard shadow. Entrances (logo, sketch, `Reveal`) are not interactions.
 - Spacing utilities step on `--space-1` (4px); titles use `font-title`, hand-drawn strokes `--stroke-fine`.
 - `prefers-reduced-motion: reduce` shows every drawing finished and every hover at once.
 

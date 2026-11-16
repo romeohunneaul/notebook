@@ -11,7 +11,7 @@
     repeating-linear-gradient(0deg, color-mix(in srgb, var(--ink) 13%, transparent) 0 1px, transparent 1px 16px),
     repeating-linear-gradient(90deg, color-mix(in srgb, var(--ink) 13%, transparent) 0 1px, transparent 1px 16px);
 
-  /* The pen: hand-drawn marks (Mark, DrawnMark) are fine liner. The logo keeps its own Figma widths. */
+  /* The pen: hand-drawn marks (Mark, DrawnBox) are fine liner. The logo keeps its own Figma widths. */
   --stroke-fine: 1.5px;
 
   /* Hard offset shadows. Ink ones answer the pointer; the soft one is the sticker's, always on. */
